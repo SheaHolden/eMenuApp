@@ -4,7 +4,7 @@
     tools:ignore="MissingDefaultResource">
 
     <item
-        android:drawable="@drawable/qrIcn"
+        android:drawable="@drawable/qr_icn"
         android:width="110dp"
         android:height="110dp"
         android:right="9dp"
