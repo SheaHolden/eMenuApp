@@ -3,6 +3,13 @@
     <color name="colorPrimary">#188AFC</color>
     <color name="colorPrimaryDark">#125BFF</color>
     <color name="colorAccent">#03DAC5</color>
-    <color name="backgroundBlue">#188AFC</color>
-    <color name="backgroundWhite">#E5EDFF</color>
+    <color name="backgroundBlue">#0A85FF</color>
+    <color name="backgroundWhite">#83A9FF</color>
+    <color name="mainBlue">#188AFC</color>
+    <color name="darkBlue">#125BFF</color>
+    <color name="defaultDivider">#E8E8E8</color>
+    <color name="white">#FFFFFF</color>
+    <color name="unselectedTabTextColor">#80FFFFFF</color>
+    <color name="darkText">#303030</color>
+    <color name="subcategoryBackground">#F6F6F6</color>
 </resources>
