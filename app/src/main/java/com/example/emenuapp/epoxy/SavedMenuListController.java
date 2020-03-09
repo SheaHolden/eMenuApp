@@ -2,30 +2,45 @@ package com.example.emenuapp.epoxy;
 
 import com.airbnb.epoxy.TypedEpoxyController;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.HashSet;
+import java.util.LinkedList;
 import java.util.List;
+import java.util.Set;
 
 public class SavedMenuListController extends TypedEpoxyController<List<String>> {
 
-    private final String alphabet = "abcdefghijklmnopqrstuvwxyz";
-
+    private final String alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 
     @Override
     protected void buildModels(List<String> data) {
 
-        int i = 0;
-        while (i < data.size()) {
+        // Sort the list
+        Collections.sort(data);
+        Set<Character> used = new HashSet<>();
 
-            Character current = alphabet.charAt(i);
-            String str = data.get(i);
+        for (int i = 0; i < data.size(); i++) {
 
-            // Add alphabetic header
-            new AlphabeticHeadingModel_()
-                    .id(i)
-                    .alphabetHeading(current.toString())
-                    .addTo(this);
+            String item = data.get(i);
+            Character firstChar = item.charAt(0);
 
-            while (str.charAt(0) == current) {
+            if (!used.contains(firstChar)) {
+
+                new AlphabeticHeadingModel_()
+                        .id(i)
+                        .alphabetHeading(firstChar.toString().toUpperCase())
+                        .addTo(this);
+
+                used.add(firstChar);
             }
+
+            new SavedMenuItemModel_()
+                    .id(i)
+                    .venueName(item)
+                    .venueAddress("1234 Test road")
+                    .addTo(this);
         }
     }
 }

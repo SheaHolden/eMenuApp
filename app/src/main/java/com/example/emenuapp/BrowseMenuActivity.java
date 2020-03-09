@@ -1,8 +1,10 @@
 package com.example.emenuapp;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.DividerItemDecoration;
 
 import android.os.Bundle;
+import android.widget.LinearLayout;
 
 import com.airbnb.epoxy.EpoxyRecyclerView;
 import com.example.emenuapp.epoxy.SavedMenuListController;
@@ -38,6 +40,11 @@ public class BrowseMenuActivity extends AppCompatActivity {
         recycler = findViewById(R.id.savedMenuRecycler);
         controller = new SavedMenuListController();
         recycler.setController(controller);
+
+        DividerItemDecoration divider = new DividerItemDecoration(recycler.getContext(), LinearLayout.VERTICAL);
+        divider.setDrawable(getDrawable(R.drawable.divider));
+        recycler.addItemDecoration(divider);
+
         controller.setData(testData);
     }
 }

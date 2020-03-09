@@ -11,9 +11,15 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.emenuapp.database.Database;
+import com.example.emenuapp.database.SavedMenuEntry;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 public class LoadMenuActivity extends Activity {
 
+    private String key;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,7 +29,8 @@ public class LoadMenuActivity extends Activity {
         // TODO: Receive the menu id from either NFC or QR
 
         // This is a temporary, hardcoded menu id
-        requestMenu("testmenu1");
+        key = "testMenu1";
+        requestMenu(key);
     }
 
 
@@ -43,13 +50,13 @@ public class LoadMenuActivity extends Activity {
 
                     @Override
                     public void onResponse(String response) {
+                        saveLocalEntry(response);
                         startMenuActivity(response);
                     }
                 }, new Response.ErrorListener() {
 
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        printErrorMessage();
                         // TODO: Move the user back to some other activity
                     }
                 });
@@ -70,11 +77,24 @@ public class LoadMenuActivity extends Activity {
     }
 
     /**
-     * Temporary error message
+     * Saves select menu information to a room database
+     * This information will be used to populate the saved menu list
+     * @param menuJson
      */
-    private void printErrorMessage() {
-        Toast.makeText(this, "Failed to load menu.", Toast.LENGTH_SHORT).show();
+    private void saveLocalEntry(String menuJson) {
+
+        Database db = Database.getInstance(this);
+        SavedMenuEntry entry = new SavedMenuEntry();
+
+        try {
+            JSONObject menu = new JSONObject(menuJson);
+            entry.id = key;
+            entry.venueName = menu.getString("venue_name");
+            entry.venueAddr = menu.getString("venue_addr");
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        db.savedEntryMenuDao().insertAll(entry);
     }
-
-
 }

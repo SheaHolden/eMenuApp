@@ -9,6 +9,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/subcategoryBackground"
+        android:padding="10dp"
         android:text="TextView"
-        android:textColor="@android:color/darker_gray" />
+        android:textColor="@android:color/darker_gray"
+        android:textSize="20sp" />
 </com.example.emenuapp.epoxy.AlphabeticHeading>
