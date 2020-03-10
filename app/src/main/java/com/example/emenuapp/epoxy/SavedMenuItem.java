@@ -40,4 +40,9 @@ public class SavedMenuItem extends LinearLayout {
     public void setVenueAddress(String venueAddress) {
         this.venueAddress.setText(venueAddress);
     }
+
+    @ModelProp
+    public void setVenueId(String venueId) {
+        this.venueName.setTag(venueId);
+    }
 }

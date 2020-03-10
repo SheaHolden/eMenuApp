@@ -4,7 +4,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.DividerItemDecoration;
 
 import android.os.Bundle;
+import android.view.View;
 import android.widget.LinearLayout;
+import android.widget.Toast;
 
 import com.airbnb.epoxy.EpoxyRecyclerView;
 import com.example.emenuapp.epoxy.SavedMenuListController;
@@ -46,5 +48,10 @@ public class BrowseMenuActivity extends AppCompatActivity {
         recycler.addItemDecoration(divider);
 
         controller.setData(testData);
+    }
+
+    public void onSavedMenuItemClick(View view) {
+        String s = (String) view.findViewById(R.id.savedMenuName).getTag();
+        Toast.makeText(this, s, Toast.LENGTH_SHORT).show();
     }
 }

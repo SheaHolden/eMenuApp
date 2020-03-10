@@ -3,6 +3,7 @@ package com.example.emenuapp;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 
 import com.airbnb.epoxy.EpoxyRecyclerView;
 
@@ -12,9 +13,11 @@ public class MainActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+    }
 
-        Intent intent = new Intent(this, LoadMenuActivity.class);
+    public void onSavedMenusButtonClick(View view) {
+
+        Intent intent = new Intent(this, BrowseMenuActivity.class);
         startActivity(intent);
     }
 }
-//Test change #2

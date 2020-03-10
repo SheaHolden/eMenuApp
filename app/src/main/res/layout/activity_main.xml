@@ -7,27 +7,29 @@
     android:background="@drawable/gradient"
     tools:context=".MainActivity">
 
+
     <ImageView
         android:id="@+id/eMenuLogo"
-        android:layout_width="239dp"
+        android:layout_width="0dp"
         android:layout_height="77dp"
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="8dp"
         android:contentDescription="@string/emenu_logo"
+        android:src="@drawable/emenu_logo"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.418"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/emenu_logo" />
-
+        app:layout_constraintTop_toTopOf="parent" />
 
     <Button
         android:id="@+id/savedMenusBtn"
         style="@style/Widget.AppCompat.Button.Borderless"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="50dp"
-        android:layout_marginTop="50dp"
-        android:layout_marginEnd="50dp"
+        android:layout_height="48dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="24dp"
+        android:layout_marginEnd="24dp"
         android:background="@drawable/button_dark"
+        android:onClick="onSavedMenusButtonClick"
         android:text="@string/saved_menus"
         android:textAllCaps="false"
         android:textAppearance="@style/TextAppearance.AppCompat.Medium"
@@ -35,7 +37,7 @@
         android:textSize="20sp"
         android:textStyle="normal|bold"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/eMenuLogo" />
 
@@ -44,44 +46,48 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="80dp"
-        android:layout_marginTop="44dp"
         android:layout_marginEnd="80dp"
         android:text="@string/nfc_instruct"
         android:textAlignment="center"
         android:textColor="@android:color/primary_text_dark"
         android:textSize="16sp"
         android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/nfcIcon"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/savedMenusBtn" />
+        app:layout_constraintTop_toBottomOf="@+id/savedMenusBtn"
+        app:layout_constraintVertical_chainStyle="packed" />
 
     <Button
         android:id="@+id/qrBtn"
         android:layout_width="0dp"
-        android:layout_height="120dp"
-        android:layout_marginStart="50dp"
-        android:layout_marginEnd="50dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginEnd="24dp"
         android:layout_marginBottom="20dp"
         android:background="@drawable/button_dark"
         android:drawableEnd="@drawable/qr_icon"
+        android:text="@string/scan_qr"
         android:textAllCaps="false"
         android:textColor="@android:color/white"
         android:textSize="20sp"
+        android:padding="8dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        tools:text="@string/scan_qr" />
+        app:layout_constraintStart_toStartOf="parent" />
 
     <ImageView
         android:id="@+id/nfcIcon"
         android:layout_width="139dp"
         android:layout_height="138dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="16dp"
         android:contentDescription="@string/nfc_instruct"
+        android:src="@drawable/baseline_nfc_white_48dp"
+        app:layout_constraintBottom_toTopOf="@+id/qrBtn"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/nfcInstructions"
-        app:srcCompat="@drawable/baseline_nfc_white_48dp" />
+        app:layout_constraintTop_toBottomOf="@+id/nfcInstructions" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

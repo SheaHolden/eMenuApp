@@ -10,9 +10,9 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
 
-public class SavedMenuListController extends TypedEpoxyController<List<String>> {
+import static com.airbnb.epoxy.EpoxyAsyncUtil.getAsyncBackgroundHandler;
 
-    private final String alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+public class SavedMenuListController extends TypedEpoxyController<List<String>> {
 
     @Override
     protected void buildModels(List<String> data) {
@@ -38,6 +38,7 @@ public class SavedMenuListController extends TypedEpoxyController<List<String>> 
 
             new SavedMenuItemModel_()
                     .id(i)
+                    .venueId("testMenu1")
                     .venueName(item)
                     .venueAddress("1234 Test road")
                     .addTo(this);
