@@ -3,6 +3,7 @@ package com.example.emenuapp;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.DividerItemDecoration;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.LinearLayout;
@@ -52,6 +53,10 @@ public class BrowseMenuActivity extends AppCompatActivity {
 
     public void onSavedMenuItemClick(View view) {
         String s = (String) view.findViewById(R.id.savedMenuName).getTag();
-        Toast.makeText(this, s, Toast.LENGTH_SHORT).show();
+
+        Intent intent = new Intent();
+        intent.setClass(this, LoadMenuActivity.class);
+        intent.putExtra(LoadMenuActivity.EXTRA_MENU_KEY, s);
+        startActivity(intent);
     }
 }
