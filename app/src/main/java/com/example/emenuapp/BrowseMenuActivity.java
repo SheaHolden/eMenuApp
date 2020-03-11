@@ -3,16 +3,19 @@ package com.example.emenuapp;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.DividerItemDecoration;
 
+import android.app.Activity;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.LinearLayout;
-import android.widget.Toast;
 
 import com.airbnb.epoxy.EpoxyRecyclerView;
+import com.example.emenuapp.database.Database;
+import com.example.emenuapp.database.SavedMenuEntry;
 import com.example.emenuapp.epoxy.SavedMenuListController;
 
-import java.util.ArrayList;
+import java.lang.ref.WeakReference;
 import java.util.List;
 
 public class BrowseMenuActivity extends AppCompatActivity {
@@ -25,20 +28,10 @@ public class BrowseMenuActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_browse_menu);
 
-        init();
+        new FetchMenuEntriesTask(this).execute();
     }
 
-    private void init() {
-
-        List<String> testData = new ArrayList<>();
-        testData.add("Aeroplane");
-        testData.add("Aircraft Carrier");
-        testData.add("Backpack");
-        testData.add("Borderline");
-        testData.add("Billiards");
-        testData.add("Doppler");
-        testData.add("Library");
-        testData.add("Mosquito");
+    private void buildRecycler(List<SavedMenuEntry> entries) {
 
         recycler = findViewById(R.id.savedMenuRecycler);
         controller = new SavedMenuListController();
@@ -48,7 +41,7 @@ public class BrowseMenuActivity extends AppCompatActivity {
         divider.setDrawable(getDrawable(R.drawable.divider));
         recycler.addItemDecoration(divider);
 
-        controller.setData(testData);
+        controller.setData(entries);
     }
 
     public void onSavedMenuItemClick(View view) {
@@ -58,5 +51,25 @@ public class BrowseMenuActivity extends AppCompatActivity {
         intent.setClass(this, LoadMenuActivity.class);
         intent.putExtra(LoadMenuActivity.EXTRA_MENU_KEY, s);
         startActivity(intent);
+    }
+
+    protected static class FetchMenuEntriesTask extends AsyncTask<Void, Void, List<SavedMenuEntry>> {
+
+        WeakReference<Activity> weakActivity;
+
+        protected FetchMenuEntriesTask(Activity activity) {
+            this.weakActivity = new WeakReference<>(activity);
+        }
+
+        @Override
+        protected List<SavedMenuEntry> doInBackground(Void... voids) {
+            return (Database.getInstance(weakActivity.get())).savedEntryMenuDao().getAll();
+         }
+
+        @Override
+        protected void onPostExecute(List<SavedMenuEntry> entries) {
+            super.onPostExecute(entries);
+            ((BrowseMenuActivity)weakActivity.get()).buildRecycler(entries);
+        }
     }
 }

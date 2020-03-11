@@ -1,7 +1,9 @@
 package com.example.emenuapp;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.widget.Toast;
 
@@ -17,67 +19,61 @@ import com.example.emenuapp.database.SavedMenuEntry;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.lang.ref.WeakReference;
+
 public class LoadMenuActivity extends Activity {
 
     public static final String EXTRA_MENU_KEY = "EXTRA_MENU_KEY";
-
-    private String key;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_load_menu);
 
-        // TODO: Receive the menu id from either NFC or QR
-
-
-        Intent intent = getIntent();
-        if (intent.hasExtra(EXTRA_MENU_KEY)) {
-
-            this.key = intent.getStringExtra(EXTRA_MENU_KEY);
-        }
-
-        requestMenu(key);
+        requestMenu(getKey());
     }
 
+    /**
+     * Gets the key from an intent, returns ull if not found
+     * @return
+     */
+    private String getKey() {
+        Intent intent = getIntent();
+        if (intent.hasExtra(EXTRA_MENU_KEY)) {
+            return intent.getStringExtra(EXTRA_MENU_KEY);
+        } else {
+            return null;
+        }
+    }
 
     /**
      * Sends a request to the menu server and passes the received string to the menu activity
      * If the request fails, it returns an error message to the previous activity
      *
-     * @param restaurantId
+     * @param key
      */
-    private void requestMenu(String restaurantId) {
+    private void requestMenu(String key) {
 
-        String requestUrl = getString(R.string.menu_server_test_url) + "?id=" + restaurantId;
+        String requestUrl = getString(R.string.menu_server_test_url) + "?id=" + key;
         RequestQueue queue = Volley.newRequestQueue(this);
 
         StringRequest request = new StringRequest
-                (Request.Method.GET, requestUrl, new Response.Listener<String>() {
-
-                    @Override
-                    public void onResponse(String response) {
-                        saveLocalEntry(response);
-                        startMenuActivity(response);
-                    }
-                }, new Response.ErrorListener() {
-
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        // TODO: Move the user back to some other activity
-                    }
+                (Request.Method.GET, requestUrl, response -> {
+                    saveLocalEntry(response, key);
+                    startMenuActivity(response);
+                }, error -> {
+                    // TODO: Move the user back to some other activity
                 });
 
         queue.add(request);
     }
-
 
     /**
      * Starts the menu activity with a json menu string
      *
      * @param menuJson
      */
-    private void startMenuActivity(String menuJson) {
+    public void startMenuActivity(String menuJson) {
         Intent intent = new Intent(this, MenuActivity.class);
         intent.putExtra(MenuActivity.EXTRA_MENU_DATA, menuJson);
         startActivity(intent);
@@ -88,21 +84,50 @@ public class LoadMenuActivity extends Activity {
      * This information will be used to populate the saved menu list
      * @param menuJson
      */
-    private void saveLocalEntry(String menuJson) {
+    private void saveLocalEntry(String menuJson, String key) {
+        new SaveEntryTask(this, menuJson, key).execute();
+    }
 
-        /*
-        Database db = Database.getInstance(this);
-        SavedMenuEntry entry = new SavedMenuEntry();
 
-        try {
-            JSONObject menu = new JSONObject(menuJson);
-            entry.id = key;
-            entry.venueName = menu.getString("venue_name");
-            entry.venueAddr = menu.getString("venue_addr");
+    /**
+     * For accessing room database asynchronously
+     */
+    protected static class SaveEntryTask extends AsyncTask<Void, Void, Void> {
 
-        } catch (JSONException e) {
-            e.printStackTrace();
+        private WeakReference<Activity> weakActivity;
+        private String menuJson;
+        private String key;
+
+        protected SaveEntryTask(Activity activity, String menuJson, String key) {
+            this.weakActivity = new WeakReference<>(activity);
+            this.menuJson = menuJson;
+            this.key = key;
         }
-        db.savedEntryMenuDao().insertAll(entry); */
+
+        @Override
+        protected Void doInBackground(Void... aVoid) {
+
+            Database db = Database.getInstance(weakActivity.get());
+            SavedMenuEntry entry = new SavedMenuEntry();
+
+            entry.venueId = this.key;
+            try {
+                JSONObject menu = new JSONObject(menuJson);
+                entry.venueName = menu.getString("venue_name");
+                entry.venueAddr = menu.getString("venue_addr");
+
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+            db.savedEntryMenuDao().insertAll(entry);
+
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void aVoid) {
+            super.onPostExecute(aVoid);
+            ((LoadMenuActivity)weakActivity.get()).startMenuActivity(menuJson);
+        }
     }
 }

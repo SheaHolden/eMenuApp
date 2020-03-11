@@ -9,8 +9,11 @@ import androidx.room.PrimaryKey;
 public class SavedMenuEntry {
 
     @NonNull
-    @PrimaryKey()
-    public String id;
+    @PrimaryKey(autoGenerate = true)
+    public int id;
+
+    @ColumnInfo(name = "venue_id")
+    public String venueId;
 
     @ColumnInfo(name = "venue_name")
     public String venueName;

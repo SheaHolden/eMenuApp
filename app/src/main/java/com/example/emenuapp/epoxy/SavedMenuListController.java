@@ -1,6 +1,7 @@
 package com.example.emenuapp.epoxy;
 
 import com.airbnb.epoxy.TypedEpoxyController;
+import com.example.emenuapp.database.SavedMenuEntry;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -12,19 +13,19 @@ import java.util.Set;
 
 import static com.airbnb.epoxy.EpoxyAsyncUtil.getAsyncBackgroundHandler;
 
-public class SavedMenuListController extends TypedEpoxyController<List<String>> {
+public class SavedMenuListController extends TypedEpoxyController<List<SavedMenuEntry>> {
 
     @Override
-    protected void buildModels(List<String> data) {
+    protected void buildModels(List<SavedMenuEntry> data) {
 
         // Sort the list
-        Collections.sort(data);
+        Collections.sort(data, (o1, o2) -> o1.venueName.compareTo(o2.venueName));
         Set<Character> used = new HashSet<>();
 
         for (int i = 0; i < data.size(); i++) {
 
-            String item = data.get(i);
-            Character firstChar = item.charAt(0);
+            SavedMenuEntry entry = data.get(i);
+            Character firstChar = entry.venueName.charAt(0);
 
             if (!used.contains(firstChar)) {
 
@@ -37,10 +38,10 @@ public class SavedMenuListController extends TypedEpoxyController<List<String>> 
             }
 
             new SavedMenuItemModel_()
-                    .id(i)
-                    .venueId("testMenu1")
-                    .venueName(item)
-                    .venueAddress("1234 Test road")
+                    .id(entry.id)
+                    .venueId(entry.venueId)
+                    .venueName(entry.venueName)
+                    .venueAddress(entry.venueAddr)
                     .addTo(this);
         }
     }
