@@ -1,6 +1,7 @@
 package com.example.emenuapp;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Toast;
@@ -18,7 +19,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 public class LoadMenuActivity extends Activity {
-
+    private final String KEY = "result";
     private String key;
 
     @Override
@@ -29,7 +30,7 @@ public class LoadMenuActivity extends Activity {
         // TODO: Receive the menu id from either NFC or QR
 
         // This is a temporary, hardcoded menu id
-        key = "testMenu1";
+        key = getIntent().getStringExtra(KEY);
         requestMenu(key);
     }
 
