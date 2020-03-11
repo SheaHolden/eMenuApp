@@ -21,7 +21,7 @@ import static android.Manifest.permission.CAMERA;
 public class QRScanActivity extends AppCompatActivity implements ZXingScannerView.ResultHandler {
     private static final int REQUEST_CAMERA = 1;
     private ZXingScannerView scannerView;
-    private final String KEY = "result";
+    private final String KEY = "EXTRA_MENU_KEY";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
