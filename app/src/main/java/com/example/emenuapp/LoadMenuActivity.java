@@ -19,6 +19,8 @@ import org.json.JSONObject;
 
 public class LoadMenuActivity extends Activity {
 
+    public static final String EXTRA_MENU_KEY = "EXTRA_MENU_KEY";
+
     private String key;
 
     @Override
@@ -28,8 +30,13 @@ public class LoadMenuActivity extends Activity {
 
         // TODO: Receive the menu id from either NFC or QR
 
-        // This is a temporary, hardcoded menu id
-        key = "testMenu1";
+
+        Intent intent = getIntent();
+        if (intent.hasExtra(EXTRA_MENU_KEY)) {
+
+            this.key = intent.getStringExtra(EXTRA_MENU_KEY);
+        }
+
         requestMenu(key);
     }
 
@@ -83,6 +90,7 @@ public class LoadMenuActivity extends Activity {
      */
     private void saveLocalEntry(String menuJson) {
 
+        /*
         Database db = Database.getInstance(this);
         SavedMenuEntry entry = new SavedMenuEntry();
 
@@ -95,6 +103,6 @@ public class LoadMenuActivity extends Activity {
         } catch (JSONException e) {
             e.printStackTrace();
         }
-        db.savedEntryMenuDao().insertAll(entry);
+        db.savedEntryMenuDao().insertAll(entry); */
     }
 }
