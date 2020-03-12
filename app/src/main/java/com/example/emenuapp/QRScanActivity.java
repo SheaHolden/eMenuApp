@@ -109,13 +109,8 @@ public class QRScanActivity extends AppCompatActivity implements ZXingScannerVie
     @Override
     public void handleResult(Result result) {
         final String scanResult = result.getText();
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle("Scan Result:");
-        builder.setMessage(scanResult);
-        AlertDialog alert = builder.create();
-        alert.show();
         Intent intent = new Intent(this, LoadMenuActivity.class);
-        intent.putExtra(KEY, scanResult);
+        intent.putExtra(LoadMenuActivity.EXTRA_MENU_KEY, scanResult);
         startActivity(intent);
     }
 }
