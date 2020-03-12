@@ -68,11 +68,12 @@
         android:layout_marginBottom="20dp"
         android:background="@drawable/button_dark"
         android:drawableEnd="@drawable/qr_icon"
+        android:onClick="onQRScannerClick"
+        android:padding="8dp"
         android:text="@string/scan_qr"
         android:textAllCaps="false"
         android:textColor="@android:color/white"
         android:textSize="20sp"
-        android:padding="8dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />

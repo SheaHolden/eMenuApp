@@ -16,6 +16,7 @@ import org.json.JSONObject;
 
 import java.lang.ref.WeakReference;
 
+
 public class MainActivity extends Activity {
 
     @Override
@@ -26,6 +27,11 @@ public class MainActivity extends Activity {
 
     public void onSavedMenusButtonClick(View view) {
         Intent intent = new Intent(this, BrowseMenuActivity.class);
+        startActivity(intent);
+    }
+    public void onQRScannerClick(View view) {
+
+        Intent intent = new Intent(this, QRScanActivity.class);
         startActivity(intent);
     }
 }
