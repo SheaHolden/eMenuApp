@@ -5,8 +5,8 @@
 
     <item
         android:drawable="@drawable/qr_icn"
-        android:width="80dp"
-        android:height="80dp"
+        android:width="60dp"
+        android:height="60dp"
         android:right="24dp"
         />
 

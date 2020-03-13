@@ -39,6 +39,13 @@ public class LoadMenuActivity extends Activity {
         requestMenu(getKey());
     }
 
+    @Override
+    protected void onNewIntent(Intent intent) {
+        super.onNewIntent(intent);
+
+        requestMenu(getKey());
+    }
+
     /**
      * Gets the key from an intent, returns null if not found
      * @return
@@ -55,6 +62,12 @@ public class LoadMenuActivity extends Activity {
         }
     }
 
+    /**
+     * Takes the parcelable array extra from the nfc intent and parses its string payload.
+     *
+     * @param raw
+     * @return
+     */
     private String parseNfcData(Parcelable[] raw) {
 
         if (raw == null) return null;
@@ -154,5 +167,12 @@ public class LoadMenuActivity extends Activity {
             super.onPostExecute(aVoid);
             ((LoadMenuActivity)weakActivity.get()).startMenuActivity(menuJson);
         }
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+
+        Database.destroyInstance();
     }
 }

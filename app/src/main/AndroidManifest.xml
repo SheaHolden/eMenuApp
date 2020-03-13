@@ -14,7 +14,8 @@
         <activity android:name=".QRScanActivity"></activity>
         <activity android:name=".BrowseMenuActivity" />
         <activity android:name=".MenuActivity" />
-        <activity android:name=".LoadMenuActivity" >
+        <activity android:name=".LoadMenuActivity"
+            android:launchMode="singleTask">
             <intent-filter>
                 <action android:name="android.nfc.action.NDEF_DISCOVERED"/>
                 <category android:name="android.intent.category.DEFAULT"/>

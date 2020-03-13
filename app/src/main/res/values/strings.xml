@@ -1,8 +1,7 @@
 <resources>
     <string name="app_name">eMenu</string>
-    <string name="saved_menus">Saved Menus</string>
-    <string name="nfc_instruct">Enable NFC and touch phone to eMenu plaque to
-        scan a new menu</string>
+    <string name="saved_menus">Browse Menus</string>
+    <string name="nfc_instruct">Touch phone to an eMenu plaque with NFC enabled to load a menu</string>
     <string name="no_nfc">No NFC?</string>
     <string name="scan_qr">"No NFC? \n Scan with QR"</string>
     <string name="emenu_logo">eMenu Logo</string>
