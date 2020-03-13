@@ -3,8 +3,13 @@ package com.example.emenuapp;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.nfc.NdefMessage;
+import android.nfc.NdefRecord;
+import android.nfc.NfcAdapter;
+import android.nfc.tech.Ndef;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.widget.Toast;
 
 import com.android.volley.Request;
@@ -20,6 +25,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.lang.ref.WeakReference;
+import java.util.Arrays;
 
 public class LoadMenuActivity extends Activity {
 
@@ -34,17 +40,36 @@ public class LoadMenuActivity extends Activity {
     }
 
     /**
-     * Gets the key from an intent, returns ull if not found
+     * Gets the key from an intent, returns null if not found
      * @return
      */
     private String getKey() {
         Intent intent = getIntent();
         if (intent.hasExtra(EXTRA_MENU_KEY)) {
             return intent.getStringExtra(EXTRA_MENU_KEY);
+        }
+        else if (intent.getAction().equals(NfcAdapter.ACTION_NDEF_DISCOVERED)) {
+            return parseNfcData(intent.getParcelableArrayExtra(NfcAdapter.EXTRA_NDEF_MESSAGES));
         } else {
             return null;
         }
     }
+
+    private String parseNfcData(Parcelable[] raw) {
+
+        if (raw == null) return null;
+        NdefMessage msg = (NdefMessage) raw[0];
+        NdefRecord[] records = msg.getRecords();
+        if (records == null) return null;
+
+        NdefRecord record = records[0];
+        if (record.toMimeType().equals("text/plain")) {
+            byte[] payload = record.getPayload();
+            return new String(Arrays.copyOfRange(payload, 3, payload.length));
+        } else {
+            return null;
+        }
+     }
 
     /**
      * Sends a request to the menu server and passes the received string to the menu activity
