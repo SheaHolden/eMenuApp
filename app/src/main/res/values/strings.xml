@@ -6,4 +6,5 @@
     <string name="scan_qr">"No NFC? \n Scan with QR"</string>
     <string name="emenu_logo">eMenu Logo</string>
     <string name="menu_server_test_url">http://cs.tru.ca/~sholdenw20/testMenu/test.php</string>
+    <string name="menu_server_image_dir">http://cs.tru.ca/~sholdenw20/testMenu/images/</string>
 </resources>

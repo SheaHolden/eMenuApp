@@ -2,11 +2,13 @@ package com.example.emenuapp.epoxy;
 
 import android.content.Context;
 import android.util.AttributeSet;
+import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 
+import com.airbnb.epoxy.ModelProp;
 import com.airbnb.epoxy.ModelView;
 import com.airbnb.epoxy.TextProp;
 import com.example.emenuapp.R;
@@ -50,5 +52,13 @@ public class MenuItemNoImage extends LinearLayout {
     @TextProp()
     public void setMenuItemPrice(CharSequence menuItemPrice) {
         this.itemPrice.setText(menuItemPrice);
+    }
+
+    @ModelProp
+    public void setHideDescription(Boolean hide) {
+        if (hide.booleanValue())
+            this.itemDescription.setVisibility(View.GONE);
+        else
+            this.itemDescription.setVisibility(View.VISIBLE);
     }
 }

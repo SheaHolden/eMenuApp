@@ -50,4 +50,14 @@ public class MenuActivity extends AppCompatActivity {
             menuJson = intent.getStringExtra(EXTRA_MENU_DATA);
         }
     }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+
+        // Go back to the home screen
+        Intent intent = new Intent();
+        intent.setClass(this, MainActivity.class);
+        startActivity(intent);
+    }
 }

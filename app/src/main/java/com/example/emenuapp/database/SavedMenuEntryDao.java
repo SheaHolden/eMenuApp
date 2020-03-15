@@ -12,6 +12,9 @@ public interface SavedMenuEntryDao {
     @Query("Select * from SavedMenuEntry")
     List<SavedMenuEntry> getAll();
 
+    @Query("select * from SavedMenuEntry where (venue_id = :venueId)")
+    List<SavedMenuEntry> getByVenueId(String venueId);
+
     @Insert
     void insertAll(SavedMenuEntry ... entries);
 }

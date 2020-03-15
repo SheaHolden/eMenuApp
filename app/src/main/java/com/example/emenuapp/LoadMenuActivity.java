@@ -26,6 +26,7 @@ import org.json.JSONObject;
 
 import java.lang.ref.WeakReference;
 import java.util.Arrays;
+import java.util.List;
 
 public class LoadMenuActivity extends Activity {
 
@@ -146,18 +147,22 @@ public class LoadMenuActivity extends Activity {
         protected Void doInBackground(Void... aVoid) {
 
             Database db = Database.getInstance(weakActivity.get());
-            SavedMenuEntry entry = new SavedMenuEntry();
+            List<SavedMenuEntry> entries = db.savedEntryMenuDao().getByVenueId(key);
 
-            entry.venueId = this.key;
-            try {
-                JSONObject menu = new JSONObject(menuJson);
-                entry.venueName = menu.getString("venue_name");
-                entry.venueAddr = menu.getString("venue_addr");
+            if (entries.isEmpty()) {
 
-            } catch (JSONException e) {
-                e.printStackTrace();
+                SavedMenuEntry entry = new SavedMenuEntry();
+                entry.venueId = this.key;
+                try {
+                    JSONObject menu = new JSONObject(menuJson);
+                    entry.venueName = menu.getString("venue_name");
+                    entry.venueAddr = menu.getString("venue_addr");
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+                db.savedEntryMenuDao().insertAll(entry);
             }
-            db.savedEntryMenuDao().insertAll(entry);
 
             return null;
         }
