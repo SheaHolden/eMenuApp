@@ -9,6 +9,9 @@ import org.json.JSONObject;
 import java.util.List;
 import java.util.Random;
 
+/**
+ * Populates menu items with data
+ */
 public class MenuListController extends TypedEpoxyController<JSONObject> {
 
     @Override
@@ -40,6 +43,12 @@ public class MenuListController extends TypedEpoxyController<JSONObject> {
         }
     }
 
+
+    /**
+     * Builds an array of menu items into model objects
+     * @param items
+     * @throws JSONException
+     */
     public void buildItemList(JSONArray items) throws JSONException {
 
         for (int i = 0; i < items.length(); i++) {
@@ -53,6 +62,14 @@ public class MenuListController extends TypedEpoxyController<JSONObject> {
         }
     }
 
+
+    /**
+     * Builds a menu item model from the given JSONObject.
+     * @param item
+     * @param hasDescription
+     * @param hasImage
+     * @throws JSONException
+     */
     public void buildItem(JSONObject item, boolean hasDescription, boolean hasImage) throws JSONException{
 
         CharSequence name = item.getString("item_name");

@@ -8,7 +8,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
-        android:text="California Burger"
+        android:text="@string/empty"
         android:textColor="#1C1C1C"
         android:textSize="18sp" />
 
@@ -17,7 +17,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
-        android:text="TextView" />
+        android:text="@string/empty" />
 
     <include
         layout="@layout/badge_price_layout"

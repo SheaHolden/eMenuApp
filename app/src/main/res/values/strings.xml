@@ -7,10 +7,11 @@
     <string name="emenu_logo">eMenu Logo</string>
     <string name="menu_server_test_url">https://cs.tru.ca/~sholdenw20/testMenu/test.php</string>
     <string name="menu_server_image_dir">https://cs.tru.ca/~sholdenw20/testMenu/images/</string>
-
     <string name="badge_vegetarian">Vegetarian</string>
     <string name="badge_vegan">Vegan</string>
     <string name="badge_chefs_choice">Chefs Choice</string>
     <string name="badge_gluten_free">Gluten Free</string>
-
+    <string name="loading_message">Loading Menu</string>
+    <string name="empty">empty</string>
+    <string name="translations">Translations</string>
 </resources>

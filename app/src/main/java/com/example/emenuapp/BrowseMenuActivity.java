@@ -19,6 +19,10 @@ import com.example.emenuapp.epoxy.SavedMenuListController;
 import java.lang.ref.WeakReference;
 import java.util.List;
 
+/**
+ * This activity show a list of menus that have been saved previously. Tapping on a menu
+ * loads it and displays it to the user.
+ */
 public class BrowseMenuActivity extends AppCompatActivity {
 
     private EpoxyRecyclerView recycler;
@@ -29,12 +33,27 @@ public class BrowseMenuActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_browse_menu);
 
+        init();
+    }
+
+
+
+    private void init() {
+
+        // Configure the action bar
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setTitle("Saved Menus");
 
+        // Fetch menu entries from the database
         new FetchMenuEntriesTask(this).execute();
     }
 
+
+
+    /**
+     * Creates the recycler view that contains the saved menu entries
+     * @param entries
+     */
     private void buildRecycler(List<SavedMenuEntry> entries) {
 
         recycler = findViewById(R.id.savedMenuRecycler);
@@ -48,6 +67,12 @@ public class BrowseMenuActivity extends AppCompatActivity {
         controller.setData(entries);
     }
 
+
+
+    /**
+     * When an entry is clicked, feeds the menu key to the loading activity
+     * @param view
+     */
     public void onSavedMenuItemClick(View view) {
         String s = (String) view.findViewById(R.id.savedMenuName).getTag();
 
@@ -57,6 +82,12 @@ public class BrowseMenuActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
+
+
+    /**
+     * Represents an asynchronous task to fetch menu entries from the room database.
+     * Necessary so that loading doesn't freeze the main UI thread.
+     */
     protected static class FetchMenuEntriesTask extends AsyncTask<Void, Void, List<SavedMenuEntry>> {
 
         WeakReference<Activity> weakActivity;
@@ -70,6 +101,10 @@ public class BrowseMenuActivity extends AppCompatActivity {
             return (Database.getInstance(weakActivity.get())).savedEntryMenuDao().getAll();
          }
 
+        /**
+         * Populate the recycler view once data has been fetched from the database
+         * @param entries
+         */
         @Override
         protected void onPostExecute(List<SavedMenuEntry> entries) {
             super.onPostExecute(entries);

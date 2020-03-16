@@ -8,8 +8,6 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import static com.airbnb.epoxy.EpoxyAsyncUtil.getAsyncBackgroundHandler;
-
 public class SavedMenuListController extends TypedEpoxyController<List<SavedMenuEntry>> {
 
     @Override

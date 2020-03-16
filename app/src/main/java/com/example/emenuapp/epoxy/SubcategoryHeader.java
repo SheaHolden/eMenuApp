@@ -11,6 +11,9 @@ import com.airbnb.epoxy.ModelView;
 import com.airbnb.epoxy.TextProp;
 import com.example.emenuapp.R;
 
+/**
+ * ViewModel class for subcategory headers.
+ */
 @ModelView(autoLayout = ModelView.Size.MATCH_WIDTH_WRAP_HEIGHT)
 public class SubcategoryHeader extends LinearLayout {
 

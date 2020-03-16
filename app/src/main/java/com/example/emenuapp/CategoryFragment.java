@@ -15,10 +15,14 @@ import com.airbnb.epoxy.EpoxyRecyclerView;
 import com.example.emenuapp.epoxy.MenuListController;
 import org.json.JSONObject;
 
+
+/**
+ * This fragment contains the recycler view for a specific menu category.
+ * It is managed by the CategoryFragmentAdapter and ViewPager2.
+ */
 public class CategoryFragment extends Fragment {
 
     private JSONObject category;
-
     private EpoxyRecyclerView recyclerView;
     private MenuListController controller;
 
@@ -28,11 +32,15 @@ public class CategoryFragment extends Fragment {
         this.category = category;
     }
 
+
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         return inflater.inflate(R.layout.category_page, container, false);
     }
+
+
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {

@@ -22,6 +22,9 @@ import com.example.emenuapp.epoxy.MenuListController;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+/**
+ * Displays a menu to the user.
+ */
 public class MenuActivity extends AppCompatActivity {
 
     private String menuJson;
@@ -32,16 +35,22 @@ public class MenuActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_menu);
 
-        handleIntents();
-        setUpActionBar();
+        // Receive intents
+        Intent intent = getIntent();
+        if (intent.hasExtra(EXTRA_MENU_DATA)) {
+            menuJson = intent.getStringExtra(EXTRA_MENU_DATA);
+        }
 
-        ViewPager2 pager = findViewById(R.id.categoryPager);
-        CategoryFragmentAdapter adapter = new CategoryFragmentAdapter(this, menuJson, pager);
-        pager.setAdapter(adapter);
-        adapter.initMediator();
+        configureActionBar();
+        configureViewPager();
     }
 
-    private void setUpActionBar() {
+
+
+    /**
+     * Configures the action bar with a back button.
+     */
+    private void configureActionBar() {
 
         ActionBar actionBar = getSupportActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
@@ -55,14 +64,26 @@ public class MenuActivity extends AppCompatActivity {
         }
     }
 
-    private void handleIntents() {
 
-        Intent intent = getIntent();
-        if (intent.hasExtra(EXTRA_MENU_DATA)) {
-            menuJson = intent.getStringExtra(EXTRA_MENU_DATA);
-        }
+
+    /**
+     * Sets up the view pager with the fragment state adapter.
+     */
+    private void configureViewPager() {
+
+        ViewPager2 pager = findViewById(R.id.categoryPager);
+        CategoryFragmentAdapter adapter = new CategoryFragmentAdapter(this, menuJson, pager);
+        pager.setAdapter(adapter);
+        adapter.initMediator();
     }
 
+
+
+    /**
+     * Enables and inflates the context menu
+     * @param menu
+     * @return
+     */
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
@@ -71,6 +92,14 @@ public class MenuActivity extends AppCompatActivity {
         return true;
     }
 
+
+
+    /**
+     * Handles overflow menu option clicks.
+     * Translation feature not implemented as of yet.
+     * @param item
+     * @return
+     */
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
 
@@ -84,6 +113,12 @@ public class MenuActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
+
+
+    /**
+     * Opens the badge legend when the badge container is clicked.
+     * @param view
+     */
     public void onBadgeContainerClicked(View view) {
         if (((LinearLayout)view).getChildCount() > 0) {
             BadgeLegendDialog dialog = new BadgeLegendDialog();

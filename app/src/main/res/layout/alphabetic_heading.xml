@@ -10,7 +10,7 @@
         android:layout_height="wrap_content"
         android:background="@color/subcategoryBackground"
         android:padding="10dp"
-        android:text="TextView"
+        android:text="@string/empty"
         android:textColor="@android:color/darker_gray"
         android:textSize="20sp" />
 </com.example.emenuapp.epoxy.AlphabeticHeading>
