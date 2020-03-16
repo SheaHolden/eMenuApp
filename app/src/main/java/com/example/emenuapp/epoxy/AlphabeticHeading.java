@@ -9,6 +9,9 @@ import com.airbnb.epoxy.ModelProp;
 import com.airbnb.epoxy.ModelView;
 import com.example.emenuapp.R;
 
+/**
+ * The alphabetic heading for the browse menu list
+ */
 @ModelView(autoLayout = ModelView.Size.MATCH_WIDTH_WRAP_HEIGHT)
 public class AlphabeticHeading extends LinearLayout {
 

@@ -12,6 +12,9 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import java.util.ArrayList;
 
+/**
+ * Adapts menu data to the recycler views
+ */
 public class CategoryFragmentAdapter extends FragmentStateAdapter {
 
     private String menuJson;
@@ -25,9 +28,16 @@ public class CategoryFragmentAdapter extends FragmentStateAdapter {
         this.menuJson = menuJson;
         this.pager = pager;
         this.categories = new ArrayList<>();
+
         buildCategoriesAndTabs(fragmentActivity);
     }
 
+
+
+    /**
+     * Populates the tab layout and the categories array list.
+     * @param activity
+     */
     private void buildCategoriesAndTabs(FragmentActivity activity) {
 
         this.tabLayout = activity.findViewById(R.id.tabLayout);
@@ -46,6 +56,11 @@ public class CategoryFragmentAdapter extends FragmentStateAdapter {
         }
     }
 
+
+
+    /**
+     * Creates a mediator that sets the tab names based on an index
+     */
     public void initMediator() {
 
         TabLayoutMediator mediator = new TabLayoutMediator(tabLayout, pager,
@@ -61,11 +76,13 @@ public class CategoryFragmentAdapter extends FragmentStateAdapter {
         mediator.attach();
     }
 
+
     @NonNull
     @Override
     public Fragment createFragment(int position) {
         return new CategoryFragment(categories.get(position));
     }
+
 
     @Override
     public int getItemCount() {

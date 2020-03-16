@@ -2,21 +2,12 @@ package com.example.emenuapp;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Toast;
 
-import com.airbnb.epoxy.EpoxyRecyclerView;
-import com.example.emenuapp.database.Database;
-import com.example.emenuapp.database.SavedMenuEntry;
-
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.lang.ref.WeakReference;
-
-
+/**
+ * The home screen.
+ */
 public class MainActivity extends Activity {
 
     @Override
@@ -25,13 +16,23 @@ public class MainActivity extends Activity {
         setContentView(R.layout.activity_main);
     }
 
+    /**
+     * Navigate to the browse menu activity.
+     * @param view The view that was clicked
+     */
     public void onSavedMenusButtonClick(View view) {
-        Intent intent = new Intent(this, BrowseMenuActivity.class);
-        startActivity(intent);
+        startActivity(
+                new Intent(this, BrowseMenuActivity.class)
+        );
     }
-    public void onQRScannerClick(View view) {
 
-        Intent intent = new Intent(this, QRScanActivity.class);
-        startActivity(intent);
+    /**
+     * Navigate to the QR scanner activity
+     * @param view The view that was clicked
+     */
+    public void onQRScannerClick(View view) {
+        startActivity(
+                new Intent(this, QRScanActivity.class)
+        );
     }
 }

@@ -9,6 +9,9 @@ import org.json.JSONObject;
 import java.util.List;
 import java.util.Random;
 
+/**
+ * Populates menu items with data
+ */
 public class MenuListController extends TypedEpoxyController<JSONObject> {
 
     @Override
@@ -40,6 +43,12 @@ public class MenuListController extends TypedEpoxyController<JSONObject> {
         }
     }
 
+
+    /**
+     * Builds an array of menu items into model objects
+     * @param items
+     * @throws JSONException
+     */
     public void buildItemList(JSONArray items) throws JSONException {
 
         for (int i = 0; i < items.length(); i++) {
@@ -53,10 +62,30 @@ public class MenuListController extends TypedEpoxyController<JSONObject> {
         }
     }
 
+
+    /**
+     * Builds a menu item model from the given JSONObject.
+     * @param item
+     * @param hasDescription
+     * @param hasImage
+     * @throws JSONException
+     */
     public void buildItem(JSONObject item, boolean hasDescription, boolean hasImage) throws JSONException{
 
         CharSequence name = item.getString("item_name");
         CharSequence price = item.getString("item_price");
+
+        String badgeTypes[];
+        if (item.has("item_badges")) {
+            JSONArray badges = item.getJSONArray("item_badges");
+
+            badgeTypes = new String[badges.length()];
+            for (int i = 0; i < badges.length(); i++) {
+                badgeTypes[i] = badges.getString(i);
+            }
+        } else {
+            badgeTypes = new String[] {};
+        }
 
         if (hasImage && hasDescription) {
 
@@ -70,6 +99,7 @@ public class MenuListController extends TypedEpoxyController<JSONObject> {
                     .hideDescription(false)
                     .menuItemPrice(price)
                     .menuImage(imageName)
+                    .badges(badgeTypes)
                     .addTo(this);
         }
         else if (!hasImage && hasDescription) {
@@ -82,6 +112,7 @@ public class MenuListController extends TypedEpoxyController<JSONObject> {
                     .menuItemDescription(description)
                     .menuItemPrice(price)
                     .hideDescription(false)
+                    .badges(badgeTypes)
                     .addTo(this);
         }
         else if (hasImage && !hasDescription) {
@@ -95,6 +126,7 @@ public class MenuListController extends TypedEpoxyController<JSONObject> {
                     .menuItemDescription("")
                     .hideDescription(true)
                     .menuImage(imageName)
+                    .badges(badgeTypes)
                     .addTo(this);
         }
         else if (!hasImage && !hasDescription) {
@@ -105,6 +137,7 @@ public class MenuListController extends TypedEpoxyController<JSONObject> {
                     .menuItemDescription("")
                     .hideDescription(true)
                     .menuItemPrice(price)
+                    .badges(badgeTypes)
                     .addTo(this);
         }
     }

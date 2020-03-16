@@ -3,16 +3,23 @@
     package="com.example.emenuapp">
 
     <application
+
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".QRScanActivity"></activity>
-        <activity android:name=".BrowseMenuActivity" />
-        <activity android:name=".MenuActivity" />
-        <activity android:name=".LoadMenuActivity"
+
+        <activity android:name=".QRScanActivity"/>
+        <activity android:name=".BrowseMenuActivity"
+            android:parentActivityName=".MainActivity"/>
+        <activity android:name=".MenuActivity"
+            android:parentActivityName=".BrowseMenuActivity"
+            android:launchMode="singleTop"/>
+
+        <activity
+            android:name=".LoadMenuActivity"
             android:launchMode="singleTask">
             <intent-filter>
                 <action android:name="android.nfc.action.NDEF_DISCOVERED"/>
@@ -20,20 +27,18 @@
                 <data android:mimeType="text/plain" />
             </intent-filter>
         </activity>
+
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
 
     </application>
 
     <uses-feature android:name="android.hardware.camera.autofocus" />
     <uses-feature android:name="android.hardware.camera" />
-
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.NFC" />
