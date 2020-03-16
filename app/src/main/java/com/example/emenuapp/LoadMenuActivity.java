@@ -1,6 +1,7 @@
 package com.example.emenuapp;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Intent;
 import android.nfc.NdefMessage;
 import android.nfc.NdefRecord;
@@ -22,6 +23,8 @@ import org.json.JSONObject;
 import java.lang.ref.WeakReference;
 import java.util.Arrays;
 import java.util.List;
+
+import static com.android.volley.Request.*;
 
 public class LoadMenuActivity extends Activity {
 
@@ -89,14 +92,17 @@ public class LoadMenuActivity extends Activity {
     private void requestMenu(String key) {
 
         String requestUrl = getString(R.string.menu_server_test_url) + "?id=" + key;
+
         RequestQueue queue = Volley.newRequestQueue(this);
 
         StringRequest request = new StringRequest
-                (Request.Method.GET, requestUrl, response -> {
+                (Method.GET, requestUrl, response -> {
                     saveLocalEntry(response, key);
                     startMenuActivity(response);
                 }, error -> {
-                    // TODO: Move the user back to some other activity
+                    AlertDialog.Builder builder1 = new AlertDialog.Builder(this);
+                    builder1.setMessage("Failed to load");
+                    builder1.show();
                 });
 
         queue.add(request);

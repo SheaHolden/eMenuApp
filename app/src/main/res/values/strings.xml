@@ -5,8 +5,8 @@
     <string name="no_nfc">No NFC?</string>
     <string name="scan_qr">Scan From QR"</string>
     <string name="emenu_logo">eMenu Logo</string>
-    <string name="menu_server_test_url">http://cs.tru.ca/~sholdenw20/testMenu/test.php</string>
-    <string name="menu_server_image_dir">http://cs.tru.ca/~sholdenw20/testMenu/images/</string>
+    <string name="menu_server_test_url">https://cs.tru.ca/~sholdenw20/testMenu/test.php</string>
+    <string name="menu_server_image_dir">https://cs.tru.ca/~sholdenw20/testMenu/images/</string>
 
     <string name="badge_vegetarian">Vegetarian</string>
     <string name="badge_vegan">Vegan</string>
