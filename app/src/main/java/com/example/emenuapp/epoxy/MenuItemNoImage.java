@@ -3,6 +3,7 @@ package com.example.emenuapp.epoxy;
 import android.content.Context;
 import android.util.AttributeSet;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -19,6 +20,7 @@ public class MenuItemNoImage extends LinearLayout {
     private TextView itemName;
     private TextView itemDescription;
     private TextView itemPrice;
+    private LinearLayout badgeContainer;
 
     public MenuItemNoImage(@NonNull Context context) {
         super(context);
@@ -27,16 +29,13 @@ public class MenuItemNoImage extends LinearLayout {
     public MenuItemNoImage(@NonNull Context context, AttributeSet attrs) {
         super(context, attrs);
     }
-    public MenuItemNoImage(@NonNull Context context, AttributeSet attrs, int defstyle) {
-        super(context, attrs, defstyle);
-    }
-
 
     private void init() {
         inflate(getContext(), R.layout.menu_item_2, this);
         itemName = findViewById(R.id.menuItemName);
         itemDescription = findViewById(R.id.menuItemDescription);
         itemPrice = findViewById(R.id.menuItemPrice);
+        badgeContainer = findViewById(R.id.badgeLayout);
     }
 
     @TextProp()
@@ -60,5 +59,41 @@ public class MenuItemNoImage extends LinearLayout {
             this.itemDescription.setVisibility(View.GONE);
         else
             this.itemDescription.setVisibility(View.VISIBLE);
+    }
+
+    @ModelProp
+    public void setBadges(String[] badges) {
+
+        badgeContainer.removeAllViews();
+        for (String type: badges) {
+
+            ImageView badge = buildBadge(type);
+            badgeContainer.addView(badge);
+        }
+    }
+
+    private ImageView buildBadge(String type) {
+
+        ImageView badge = new ImageView(getContext());
+        double density = getContext().getResources().getDisplayMetrics().density;
+        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams((int) (24 * density), (int) (24 * density));
+        badge.setLayoutParams(params);
+
+        switch(type) {
+
+            case "VEGETARIAN":
+                badge.setImageDrawable(getContext().getDrawable(R.drawable.badge_vegetarian));
+                break;
+            case "GLUTEN_FREE":
+                badge.setImageDrawable(getContext().getDrawable(R.drawable.badge_gluten_free));
+                break;
+            case "VEGAN":
+                badge.setImageDrawable(getContext().getDrawable(R.drawable.badge_vegan));
+                break;
+            case "CHIEFS_CHOICE":
+                badge.setImageDrawable(getContext().getDrawable(R.drawable.badge_chefs_choice));
+                break;
+        }
+        return badge;
     }
 }

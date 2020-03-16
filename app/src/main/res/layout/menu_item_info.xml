@@ -19,11 +19,9 @@
         android:layout_marginTop="10dp"
         android:text="TextView" />
 
-    <TextView
-        android:id="@+id/menuItemPrice"
+    <include
+        layout="@layout/badge_price_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:text="TextView"
-        android:textColor="#1C1C1C" />
+        android:layout_marginTop="10dp"/>
 </merge>

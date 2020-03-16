@@ -1,21 +1,16 @@
 package com.example.emenuapp;
 
 import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
 import android.nfc.NdefMessage;
 import android.nfc.NdefRecord;
 import android.nfc.NfcAdapter;
-import android.nfc.tech.Ndef;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Parcelable;
-import android.widget.Toast;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.emenuapp.database.Database;
@@ -116,6 +111,7 @@ public class LoadMenuActivity extends Activity {
         Intent intent = new Intent(this, MenuActivity.class);
         intent.putExtra(MenuActivity.EXTRA_MENU_DATA, menuJson);
         startActivity(intent);
+        finish();
     }
 
     /**
@@ -177,7 +173,6 @@ public class LoadMenuActivity extends Activity {
     @Override
     protected void onPause() {
         super.onPause();
-
         Database.destroyInstance();
     }
 }

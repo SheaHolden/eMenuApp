@@ -3,11 +3,8 @@ package com.example.emenuapp.epoxy;
 import com.airbnb.epoxy.TypedEpoxyController;
 import com.example.emenuapp.database.SavedMenuEntry;
 
-import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Comparator;
 import java.util.HashSet;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
 

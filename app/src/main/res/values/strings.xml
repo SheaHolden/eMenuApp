@@ -3,8 +3,14 @@
     <string name="saved_menus">Browse Menus</string>
     <string name="nfc_instruct">Touch phone to an eMenu plaque with NFC enabled to load a menu</string>
     <string name="no_nfc">No NFC?</string>
-    <string name="scan_qr">"No NFC? \n Scan with QR"</string>
+    <string name="scan_qr">Scan From QR"</string>
     <string name="emenu_logo">eMenu Logo</string>
     <string name="menu_server_test_url">http://cs.tru.ca/~sholdenw20/testMenu/test.php</string>
     <string name="menu_server_image_dir">http://cs.tru.ca/~sholdenw20/testMenu/images/</string>
+
+    <string name="badge_vegetarian">Vegetarian</string>
+    <string name="badge_vegan">Vegan</string>
+    <string name="badge_chefs_choice">Chefs Choice</string>
+    <string name="badge_gluten_free">Gluten Free</string>
+
 </resources>

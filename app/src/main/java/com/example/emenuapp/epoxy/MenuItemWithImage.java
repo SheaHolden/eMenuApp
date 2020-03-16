@@ -23,6 +23,7 @@ public class MenuItemWithImage extends LinearLayout {
     private TextView itemDescription;
     private TextView itemPrice;
     private ImageView itemImage;
+    private LinearLayout badgeContainer;
 
     public MenuItemWithImage(@NonNull Context context) {
         super(context);
@@ -42,6 +43,7 @@ public class MenuItemWithImage extends LinearLayout {
         itemDescription = findViewById(R.id.menuItemDescription);
         itemPrice = findViewById(R.id.menuItemPrice);
         itemImage = findViewById(R.id.menuItemImage);
+        badgeContainer = findViewById(R.id.badgeLayout);
     }
 
     @TextProp()
@@ -71,5 +73,41 @@ public class MenuItemWithImage extends LinearLayout {
             this.itemDescription.setVisibility(View.GONE);
         else
             this.itemDescription.setVisibility(View.VISIBLE);
+    }
+
+    @ModelProp
+    public void setBadges(String[] badges) {
+
+        badgeContainer.removeAllViews();
+        for (String type: badges) {
+
+            ImageView badge = buildBadge(type);
+            badgeContainer.addView(badge);
+        }
+    }
+
+    private ImageView buildBadge(String type) {
+
+        ImageView badge = new ImageView(getContext());
+        double density = getContext().getResources().getDisplayMetrics().density;
+        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams((int) (24 * density), (int) (24 * density));
+        badge.setLayoutParams(params);
+
+        switch(type) {
+
+            case "VEGETARIAN":
+                badge.setImageDrawable(getContext().getDrawable(R.drawable.badge_vegetarian));
+                break;
+            case "GLUTEN_FREE":
+                badge.setImageDrawable(getContext().getDrawable(R.drawable.badge_gluten_free));
+                break;
+            case "VEGAN":
+                badge.setImageDrawable(getContext().getDrawable(R.drawable.badge_vegan));
+                break;
+            case "CHIEFS_CHOICE":
+                badge.setImageDrawable(getContext().getDrawable(R.drawable.badge_chefs_choice));
+                break;
+        }
+        return badge;
     }
 }

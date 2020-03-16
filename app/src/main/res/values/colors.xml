@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="colorPrimary">#188AFC</color>
-    <color name="colorPrimaryDark">#125BFF</color>
-    <color name="colorPrimaryDarker">#0445D8</color>
-    <color name="colorAccent">#03DAC5</color>
-    <color name="backgroundBlue">#0080FF</color>
-    <color name="backgroundWhite">#4760FF</color>
+    <color name="colorPrimaryDark">#0F3B9E</color>
+    <color name="colorPrimaryDarker">#123A95</color>
+    <color name="colorAccent">#0F3B9E</color>
+    <color name="backgroundBlue">#1188FF</color>
+    <color name="backgroundWhite">#364FED</color>
     <color name="mainBlue">#188AFC</color>
     <color name="darkBlue">#125BFF</color>
-    <color name="defaultDivider">#D1D1D1</color>
+    <color name="defaultDivider">#E6E6E6</color>
     <color name="white">#FFFFFF</color>
     <color name="unselectedTabTextColor">#80FFFFFF</color>
     <color name="darkText">#303030</color>

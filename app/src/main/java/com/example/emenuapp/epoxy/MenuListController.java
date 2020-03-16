@@ -58,6 +58,18 @@ public class MenuListController extends TypedEpoxyController<JSONObject> {
         CharSequence name = item.getString("item_name");
         CharSequence price = item.getString("item_price");
 
+        String badgeTypes[];
+        if (item.has("item_badges")) {
+            JSONArray badges = item.getJSONArray("item_badges");
+
+            badgeTypes = new String[badges.length()];
+            for (int i = 0; i < badges.length(); i++) {
+                badgeTypes[i] = badges.getString(i);
+            }
+        } else {
+            badgeTypes = new String[] {};
+        }
+
         if (hasImage && hasDescription) {
 
             CharSequence imageName = item.getString("item_image");
@@ -70,6 +82,7 @@ public class MenuListController extends TypedEpoxyController<JSONObject> {
                     .hideDescription(false)
                     .menuItemPrice(price)
                     .menuImage(imageName)
+                    .badges(badgeTypes)
                     .addTo(this);
         }
         else if (!hasImage && hasDescription) {
@@ -82,6 +95,7 @@ public class MenuListController extends TypedEpoxyController<JSONObject> {
                     .menuItemDescription(description)
                     .menuItemPrice(price)
                     .hideDescription(false)
+                    .badges(badgeTypes)
                     .addTo(this);
         }
         else if (hasImage && !hasDescription) {
@@ -95,6 +109,7 @@ public class MenuListController extends TypedEpoxyController<JSONObject> {
                     .menuItemDescription("")
                     .hideDescription(true)
                     .menuImage(imageName)
+                    .badges(badgeTypes)
                     .addTo(this);
         }
         else if (!hasImage && !hasDescription) {
@@ -105,6 +120,7 @@ public class MenuListController extends TypedEpoxyController<JSONObject> {
                     .menuItemDescription("")
                     .hideDescription(true)
                     .menuItemPrice(price)
+                    .badges(badgeTypes)
                     .addTo(this);
         }
     }
