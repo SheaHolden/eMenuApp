@@ -10,6 +10,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.LinearLayout;
+import android.widget.Toast;
 
 import com.airbnb.epoxy.EpoxyRecyclerView;
 import com.example.emenuapp.database.Database;
@@ -108,7 +109,15 @@ public class BrowseMenuActivity extends AppCompatActivity {
         @Override
         protected void onPostExecute(List<SavedMenuEntry> entries) {
             super.onPostExecute(entries);
-            ((BrowseMenuActivity)weakActivity.get()).buildRecycler(entries);
+            if (!entries.isEmpty()) {
+                ((BrowseMenuActivity)weakActivity.get()).buildRecycler(entries);
+            } else {
+                Toast.makeText(weakActivity.get(), "You have no menus saved", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent();
+                intent.setClass(weakActivity.get(), MainActivity.class);
+                weakActivity.get().startActivity(intent);
+                weakActivity.get().finish();
+            }
         }
     }
 }
